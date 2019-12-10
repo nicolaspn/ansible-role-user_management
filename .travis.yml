@@ -3,7 +3,7 @@ sudo: required
 
 env:
   global:
-    - role: ansible-role-user
+    - role: ansible-role-user_management
   matrix:
     - distribution: debian
       version: buster
