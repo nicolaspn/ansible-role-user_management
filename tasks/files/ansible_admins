@@ -1,0 +1,2 @@
+# WARNING: file managed by Ansible (ansible-role-user_management/files/ansible_admins)
+%admins ALL=(ALL:ALL) NOPASSWD:ALL

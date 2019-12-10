@@ -1,0 +1,17 @@
+---
+- hosts: localhost
+  connection: local
+  become: true
+  roles:
+    - role: ansible-role-user
+      user_list:
+        - name: mytestuser
+          authorized_keys: 
+            - key: "ssh-rsa mykeyinfo me"
+            - key: "ssh-rsa myloosingkeyinfo me"
+              state: absent
+          groups:
+            - ''
+            - admins
+        - name: myolduser
+          state: absent

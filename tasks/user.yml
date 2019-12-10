@@ -1,0 +1,25 @@
+---
+
+- name: Create or delete user {{ item.name }}
+  user:
+    name: "{{ item.name }}"
+    home: "{{ item.home | default('/home/'+ item.name) }}"
+    state: "{{ item.state | default(omit) }}"
+    remove: "{{ item.remove | default('no') }}"
+    shell: "{{ item.shell | default('/bin/bash') }}"
+    groups: "{{ item.os_groups|join(',') if item.os_groups is defined else omit }}"   
+
+
+- name: Add the ssh key for the user {{ item.name }}
+  authorized_key:
+    key: "{{ user_item.key }}"
+    state: "{{ user_item.state | default('present') }}"
+    user: "{{ item.name }}"
+  when: 
+    - item.authorized_keys is defined
+  loop:  "{{ item.authorized_keys }}"
+    loop_control:
+      loop_var: user_item
+
+
+

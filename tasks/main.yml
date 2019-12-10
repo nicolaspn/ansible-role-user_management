@@ -1,0 +1,23 @@
+---
+- name: install sudo
+  package:
+    name: sudo
+    state: present
+
+- name: Create admins group
+  group:
+    name: admins
+    state: present
+
+- name: Allow admins group to be root
+  copy:
+    src: ansible_admins
+    dest: /etc/sudoers.d/
+    owner: root
+    group: root
+    mode: 0440
+
+- name: Include the user task
+  include: users.yml
+  loop:
+    - "{{ users }}"
